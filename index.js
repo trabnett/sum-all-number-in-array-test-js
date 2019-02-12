@@ -1,17 +1,18 @@
-function sumItems(array) {
-  if (typeof flag === "undefined") {
-    flag = 0;
+function sumItems(array, flag) {
+  if (typeof flag === 'undefined') {
+    flag = [];
   }
-  for (let item in array) {
-    if (Array.isArray(array[item])) {
-      sumItems(array[item])
-    } else if (Number.isInteger(array[item])) {
-      flag =  flag + array[item]
+  array.forEach(function (item) {
+    if (Number.isInteger(item)) {
+      flag.push(item)
+    } else {
+    sumItems(item, flag)
     }
-  }
-  return flag
+  });
+  var sum = flag.reduce((a, b) => a + b, 0);
+  return sum
 }
-
 let array = [[1, 2, [[3], 4]], 5, []]
+
 console.log(sumItems(array))
 module.exports = sumItems;
